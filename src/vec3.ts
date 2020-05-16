@@ -1,14 +1,26 @@
 import { randomNumber } from './utils';
 
 export class Vec3 {
-  readonly x: number;
-  readonly y: number;
-  readonly z: number;
+  private _x: number;
+  private _y: number;
+  private _z: number;
 
   constructor(x = 0, y = 0, z = 0) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this._x = x;
+    this._y = y;
+    this._z = z;
+  }
+
+  get x(): number {
+    return this._x;
+  }
+
+  get y(): number {
+    return this._y;
+  }
+
+  get z(): number {
+    return this._z;
   }
 
   public static random(min = 0, max = 1): Vec3 {
@@ -40,6 +52,12 @@ export class Vec3 {
     return new Vec3(r * Math.cos(a), r * Math.sin(a), z);
   }
 
+  update(v: Vec3): void {
+    this._x = v.x;
+    this._y = v.y;
+    this._z = v.z;
+  }
+
   scalarProd(a: number): Vec3 {
     return new Vec3(a * this.x, a * this.y, a * this.z);
   }
@@ -51,6 +69,10 @@ export class Vec3 {
 
   add(v: Vec3): Vec3 {
     return new Vec3(this.x + v.x, this.y + v.y, this.z + v.z);
+  }
+
+  mul(v: Vec3): Vec3 {
+    return new Vec3(this._x * v.x, this._y * v.y, this._z * v.z);
   }
 
   sub(v: Vec3): Vec3 {
@@ -83,6 +105,10 @@ export class Vec3 {
 
   map(f: Function): Vec3 {
     return new Vec3(f(this.x), f(this.y), f(this.z));
+  }
+
+  reflect(normal: Vec3): Vec3 {
+    return this.sub(normal.scalarProd(2 * this.dot(normal)));
   }
 }
 
