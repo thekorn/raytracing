@@ -1,0 +1,46 @@
+import { vec3 } from './vec3'
+
+test('create null vector', () => {
+  const v = new vec3()
+  expect(v.x).toBe(0)
+  expect(v.y).toBe(0)
+  expect(v.z).toBe(0)
+})
+
+test('create new vector', () => {
+  const v = new vec3(1, 2, 3)
+  expect(v.x).toBe(1)
+  expect(v.y).toBe(2)
+  expect(v.z).toBe(3)
+})
+
+test('add two vectors', () => {
+  const a = new vec3(1, 2, 3)
+  const b = new vec3(4, 5, 6)
+
+  const c = a.add(b)
+  expect(c.x).toBe(5)
+  expect(c.y).toBe(7)
+  expect(c.z).toBe(9)
+})
+
+test('substract two vectors', () => {
+  const a = new vec3(1, 2, 3)
+  const b = new vec3(4, 8, 12)
+
+  const c = a.sub(b)
+  expect(c.x).toBe(-3)
+  expect(c.y).toBe(-6)
+  expect(c.z).toBe(-9)
+})
+
+test('get length of vector', () => {
+  const a = new vec3()
+  expect(a.length()).toBe(0)
+
+  const b = new vec3(3, 0, 0)
+  expect(b.length()).toBe(3)
+
+  const c = new vec3(1, 2, 3)
+  expect(c.length()).toBe(Math.sqrt(14))
+})
