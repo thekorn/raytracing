@@ -1,5 +1,6 @@
 import { Point3, Vec3 } from './vec3';
 import { Ray } from './ray';
+import { degreesToRadian } from './utils';
 
 export class Camera {
   readonly origin: Point3;
@@ -7,15 +8,16 @@ export class Camera {
   readonly horizontal: Vec3;
   readonly vertical: Vec3;
 
-  constructor(origin: Point3, lowerLeftCorner: Point3, horizontal: Vec3, vertical: Vec3) {
-    this.origin = origin;
-    this.lowerLeftCorner = lowerLeftCorner;
-    this.horizontal = horizontal;
-    this.vertical = vertical;
-  }
+  constructor(verticalFov: number, aspectRatio: number) {
+    this.origin = new Point3(0, 0, 0);
 
-  public static default(): Camera {
-    return new Camera(new Point3(0, 0, 0), new Vec3(-2, -1, -1), new Vec3(4, 0, 0), new Point3(0, 2, 0));
+    const theta = degreesToRadian(verticalFov);
+    const halfHeight = Math.tan(theta / 2);
+    const halfWidth = aspectRatio * halfHeight;
+
+    this.lowerLeftCorner = new Point3(-1 * halfWidth, -1 * halfHeight, -1);
+    this.horizontal = new Vec3(2 * halfWidth, 0, 0);
+    this.vertical = new Vec3(0, 2 * halfHeight, 0);
   }
 
   getRay(u: number, v: number): Ray {
