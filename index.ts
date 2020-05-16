@@ -2,12 +2,9 @@ import * as cliProgress from 'cli-progress';
 
 import { PPMImageFile } from './src/image';
 import { Point3, Vec3 } from './src/vec3';
-import { Sphere } from './src/sphere';
-import { HittableList } from './src/hittableList';
 import { Camera } from './src/camera';
 import { Color } from './src/color';
 import { randomNumber } from './src/utils';
-import { Dielectric, Lambertian, Metal } from './src/material';
 import { generateRandomScene } from './src/world';
 
 const filename = process.argv[2] || '/tmp/image.ppm';

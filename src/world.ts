@@ -9,7 +9,7 @@ export function generateRandomScene(): HittableList {
   const world = new HittableList();
 
   world.add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(new Color(0.5, 0.5, 0.5)))); // horizon
-  const i = 1;
+
   for (let a = -11; a < 11; a++) {
     for (let b = -11; b < 11; b++) {
       const chooseMaterial = randomNumber();
