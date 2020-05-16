@@ -11,7 +11,7 @@ export class sphere {
     this.radius = radius
   }
 
-  hit(r: ray): boolean {
+  hit(r: ray): number {
     const oc = r.origin.sub(this.center)
 
     const a = r.direction.dot(r.direction)
@@ -19,6 +19,7 @@ export class sphere {
     const c = oc.dot(oc) - this.radius * this.radius
 
     const discriminant = b * b - 4 * a * c
-    return discriminant > 0
+    if (discriminant < 0) return -1
+    return (-1 * b - Math.sqrt(discriminant)) / (2 * a)
   }
 }
