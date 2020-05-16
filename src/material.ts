@@ -25,14 +25,16 @@ export class Lambertian implements Material {
 
 export class Metal implements Material {
   readonly albedo: Color;
+  readonly fuzz: number;
 
-  constructor(albedo: Color) {
+  constructor(albedo: Color, fuzz = 0) {
     this.albedo = albedo;
+    this.fuzz = fuzz < 1 ? fuzz : 1;
   }
 
   scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean {
     const reflected = rIn.direction.unitVec().reflect(rec.normal);
-    scattered.update(new Ray(rec.p, reflected));
+    scattered.update(new Ray(rec.p, reflected.add(Vec3.randomInUnitSphere().scalarProd(this.fuzz))));
     attenuation.update(this.albedo);
     return scattered.direction.dot(rec.normal) > 0;
   }
