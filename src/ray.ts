@@ -1,4 +1,5 @@
-import { Point3, Vec3, Color } from './vec3';
+import { Point3, Vec3 } from './vec3';
+import { Color } from './color';
 import { HittableList } from './hittableList';
 import { HitRecord } from './hittable';
 

@@ -1,4 +1,4 @@
-import { Vec3, Color } from './Vec3';
+import { Vec3 } from './vec3';
 
 test('create null vector', () => {
   const v = new Vec3();
@@ -70,14 +70,9 @@ test('cross peoduct of two vectors', () => {
   expect(c.equals(new Vec3())).toBeTruthy();
 });
 
-test('create black', () => {
-  const v = new Color();
-  expect(v.x).toBe(0);
-  expect(v.y).toBe(0);
-  expect(v.z).toBe(0);
-});
+test('test map function on Vec3', () => {
+  const a = new Vec3(1, 2, 3);
+  const b = a.map((x: number) => x + 1);
 
-test('invalid color', () => {
-  expect.assertions(1);
-  expect(() => new Color(10, 3, 5)).toThrow();
+  expect(b.equals(new Vec3(2, 3, 4))).toBeTruthy();
 });

@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 
-import { Color } from './vec3';
+import { Color } from './color';
+import { clamp } from './utils';
 
 export class PPMImageFile {
   readonly filepath: string;

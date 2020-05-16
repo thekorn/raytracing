@@ -1,5 +1,3 @@
-import * as assert from 'assert';
-
 export class Vec3 {
   readonly x: number;
   readonly y: number;
@@ -51,14 +49,10 @@ export class Vec3 {
   equals(v: Vec3): boolean {
     return this.x === v.x && this.y === v.y && this.z === v.z;
   }
+
+  map(f: Function): Vec3 {
+    return new Vec3(f(this.x), f(this.y), f(this.z));
+  }
 }
 
 export class Point3 extends Vec3 {}
-export class Color extends Vec3 {
-  constructor(r = 0, g = 0, b = 0) {
-    assert(0 <= r && r <= 1, 'red needs to be between 0 and 1');
-    assert(0 <= g && g <= 1, 'yellow needs to be between 0 and 1');
-    assert(0 <= b && b <= 1, 'blue needs to be between 0 and 1');
-    super(r, g, b);
-  }
-}
