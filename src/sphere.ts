@@ -14,12 +14,12 @@ export class sphere {
   hit(r: ray): number {
     const oc = r.origin.sub(this.center)
 
-    const a = r.direction.dot(r.direction)
-    const b = 2 * oc.dot(r.direction)
-    const c = oc.dot(oc) - this.radius * this.radius
+    const a = r.direction.length_squared()
+    const halfB = oc.dot(r.direction)
+    const c = oc.length_squared() - this.radius * this.radius
 
-    const discriminant = b * b - 4 * a * c
+    const discriminant = halfB * halfB  - a * c
     if (discriminant < 0) return -1
-    return (-1 * b - Math.sqrt(discriminant)) / (2 * a)
+    return (-1 * halfB - Math.sqrt(discriminant)) / a
   }
 }
