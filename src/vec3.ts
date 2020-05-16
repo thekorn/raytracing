@@ -110,6 +110,13 @@ export class Vec3 {
   reflect(normal: Vec3): Vec3 {
     return this.sub(normal.scalarProd(2 * this.dot(normal)));
   }
+
+  refract(normal: Vec3, etaiOverEtat: number): Vec3 {
+    const cosTheta = this.scalarProd(-1).dot(normal);
+    const rOutParallel = this.add(normal.scalarProd(cosTheta)).scalarProd(etaiOverEtat);
+    const rOutPrep = normal.scalarProd(-1 * Math.sqrt(1 - rOutParallel.lengthSquared()));
+    return rOutParallel.add(rOutPrep);
+  }
 }
 
 export class Point3 extends Vec3 {}

@@ -39,3 +39,28 @@ export class Metal implements Material {
     return scattered.direction.dot(rec.normal) > 0;
   }
 }
+
+export class Dielectric implements Material {
+  readonly reflectionIdx: number;
+
+  constructor(refIdx: number) {
+    this.reflectionIdx = refIdx;
+  }
+
+  scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean {
+    attenuation.update(new Color(1, 1, 1));
+    const etaiOverEtat = rec.frontFace ? 1 / this.reflectionIdx : this.reflectionIdx;
+    const unitDirection = rIn.direction.unitVec();
+
+    const cosTheta = Math.min(unitDirection.scalarProd(-1).dot(rec.normal), 1);
+    const sinTheta = Math.sqrt(1 - cosTheta * cosTheta);
+    if (etaiOverEtat * sinTheta > 1) {
+      const reflected = unitDirection.reflect(rec.normal);
+      scattered.update(new Ray(rec.p, reflected));
+      return true;
+    }
+    const refracted = unitDirection.refract(rec.normal, etaiOverEtat);
+    scattered.update(new Ray(rec.p, refracted));
+    return true;
+  }
+}

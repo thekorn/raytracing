@@ -7,7 +7,7 @@ import { HittableList } from './src/hittableList';
 import { Camera } from './src/camera';
 import { Color } from './src/color';
 import { randomNumber } from './src/utils';
-import { Lambertian, Metal } from './src/material';
+import { Dielectric, Lambertian, Metal } from './src/material';
 
 const filename = process.argv[2] || '/tmp/image.ppm';
 
@@ -20,11 +20,11 @@ const maxDepth = 50;
 const img = new PPMImageFile(filename, imgWidth, imgHeight);
 
 const world = new HittableList();
-world.add(new Sphere(new Point3(0, -100.5, -1), 100, new Lambertian(new Color(0.8, 0.8, 0.0))));
-world.add(new Sphere(new Point3(0, 0, -1), 0.5, new Lambertian(new Color(0.7, 0.3, 0.3))));
+world.add(new Sphere(new Point3(0, -100.5, -1), 100, new Lambertian(new Color(0.8, 0.8, 0.0)))); // horizon
+world.add(new Sphere(new Point3(0, 0, -1), 0.5, new Lambertian(new Color(0.1, 0.2, 0.5)))); // center
 
-world.add(new Sphere(new Point3(1, 0, -1), 0.5, new Metal(new Color(0.8, 0.6, 0.2), 0.3)));
-world.add(new Sphere(new Point3(-1, 0, -1), 0.5, new Metal(new Color(0.8, 0.8, 0.8), 1)));
+world.add(new Sphere(new Point3(1, 0, -1), 0.5, new Metal(new Color(0.8, 0.6, 0.2), 0))); // right
+world.add(new Sphere(new Point3(-1, 0, -1), 0.5, new Dielectric(1.5))); // left
 
 const cam = Camera.default();
 
