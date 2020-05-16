@@ -1,33 +1,33 @@
 import * as fs from 'fs';
 
-import { Color } from './vec3'
+import { Color } from './vec3';
 
 export class PPMImageFile {
-  readonly filepath: string
-  readonly stream: fs.WriteStream
+  readonly filepath: string;
+  readonly stream: fs.WriteStream;
 
-  constructor (path: string, width: number, height: number) {
-    this.filepath = path
+  constructor(path: string, width: number, height: number) {
+    this.filepath = path;
     this.stream = fs.createWriteStream(path);
-    this.writeHeader(width, height)
+    this.writeHeader(width, height);
   }
-  
+
   writeLine(data: string): void {
-    this.stream.write(`${data}\n`)
+    this.stream.write(`${data}\n`);
   }
 
   writeHeader(width: number, height: number): void {
-    this.writeLine('P3') // magic number for PPM bitmaps
-    this.writeLine(`${width} ${height}`)
-    this.writeLine('255') // max color value
+    this.writeLine('P3'); // magic number for PPM bitmaps
+    this.writeLine(`${width} ${height}`);
+    this.writeLine('255'); // max color value
   }
 
   writePixel(r: number, g: number, b: number): void {
-    this.writeLine(`${r} ${g} ${b}`)
+    this.writeLine(`${r} ${g} ${b}`);
   }
 
   writeColor(c: Color): void {
-    const normColor = c.scalarProd(255)
-    this.writePixel(Math.floor(normColor.x), Math.floor(normColor.y), Math.floor(normColor.z))
+    const normColor = c.scalarProd(255);
+    this.writePixel(Math.floor(normColor.x), Math.floor(normColor.y), Math.floor(normColor.z));
   }
 }
