@@ -1,5 +1,7 @@
 node_modules
 coverage
-images
+
+images/*
+!images/*.jpg
 
 .DS_Store
