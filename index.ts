@@ -1,3 +1,5 @@
+import * as cliProgress from 'cli-progress';
+
 import { PPMImageFile } from './src/image';
 import { Point3 } from './src/vec3';
 import { Sphere } from './src/sphere';
@@ -19,6 +21,9 @@ world.add(new Sphere(new Point3(0, 0, -1), 0.5));
 
 const cam = Camera.default();
 
+const progresBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+progresBar.start(imgHeight * imgWidth * samplesPerPixel, 0);
+
 for (let y = imgHeight - 1; y >= 0; --y) {
   for (let x = 0; x < imgWidth; ++x) {
     let pixelColor = new Color(0, 0, 0);
@@ -30,4 +35,6 @@ for (let y = imgHeight - 1; y >= 0; --y) {
     }
     img.writeColor(pixelColor, samplesPerPixel);
   }
+  progresBar.update((imgHeight - y) * imgWidth * samplesPerPixel);
 }
+progresBar.stop();
