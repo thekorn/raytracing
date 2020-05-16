@@ -1,4 +1,4 @@
-import { vec3 } from './vec3'
+import { vec3, color } from './vec3'
 
 test('create null vector', () => {
   const v = new vec3()
@@ -68,4 +68,16 @@ test('cross peoduct of two vectors', () => {
 
   const c = a.cross(b)  
   expect(c.equals(new vec3())).toBeTruthy()
+})
+
+test('create black', () => {
+  const v = new color()
+  expect(v.x).toBe(0)
+  expect(v.y).toBe(0)
+  expect(v.z).toBe(0)
+})
+
+test('invalid color', () => {
+  expect.assertions(1)
+  expect(() => new color(10, 3, 5)).toThrow()
 })

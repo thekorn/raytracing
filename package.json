@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "create": "ts-node index.ts",
-    "test": "jest"
+    "test": "jest --collectCoverage"
   },
   "author": "",
   "license": "ISC",

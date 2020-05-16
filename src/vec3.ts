@@ -1,3 +1,5 @@
+import * as assert from 'assert';
+
 export class vec3 {
   readonly x: number
   readonly y: number
@@ -56,4 +58,12 @@ export class vec3 {
 }
 
 export class point3 extends vec3 {}
-export class color extends vec3 {}
+export class color extends vec3 {
+
+  constructor(r: number = 0, g: number = 0, b: number = 0) {
+    assert(0 <= r && r <= 1, 'red needs to be between 0 and 1')
+    assert(0 <= g && g <= 1, 'yellow needs to be between 0 and 1')
+    assert(0 <= b && b <= 1, 'blue needs to be between 0 and 1')
+    super(r, g, b)
+  }
+}

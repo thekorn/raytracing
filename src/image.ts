@@ -1,5 +1,8 @@
 import * as fs from 'fs';
 
+import { color } from './vec3'
+import { NOTIMP } from 'dns';
+
 export class PPMImageFile {
   readonly filepath: string
   readonly stream: fs.WriteStream
@@ -22,5 +25,10 @@ export class PPMImageFile {
 
   writePixel(r: number, g: number, b: number) {
     this.writeLine(`${r} ${g} ${b}`)
+  }
+
+  writeColor(c: color) {
+    const normColor = c.scalarProd(255)
+    this.writePixel(Math.floor(normColor.x), Math.floor(normColor.y), Math.floor(normColor.z))
   }
 }
