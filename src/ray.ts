@@ -19,7 +19,9 @@ export class Ray {
   color(world: HittableList): Color {
     const rec = new HitRecord();
     if (world.hit(this, 0, Infinity, rec)) {
-      const N = rec.normal.add(new Color(1, 1, 1)).scalarProd(0.5);
+      const target = rec.p.add(rec.normal).add(Vec3.randomInUnitSphere());
+      const r = new Ray(rec.p, target.sub(rec.p));
+      const N = r.color(world).scalarProd(0.5);
       return new Color(N.x, N.y, N.z);
     }
     const unitDirection = this.direction.unitVec();

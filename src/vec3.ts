@@ -1,3 +1,5 @@
+import { randomNumber } from './utils';
+
 export class Vec3 {
   readonly x: number;
   readonly y: number;
@@ -7,6 +9,18 @@ export class Vec3 {
     this.x = x;
     this.y = y;
     this.z = z;
+  }
+
+  public static random(min = 0, max = 1): Vec3 {
+    return new Vec3(randomNumber(min, max), randomNumber(min, max), randomNumber(min, max));
+  }
+
+  public static randomInUnitSphere(): Vec3 {
+    while (true) {
+      const p = Vec3.random(-1, 1);
+      if (p.lengthSquared() >= 1) continue;
+      return p;
+    }
   }
 
   scalarProd(a: number): Vec3 {
