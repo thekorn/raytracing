@@ -21,7 +21,7 @@ export class Ray {
     // if we exceed the ray bounce limit, no more light is gathered
     if (depth <= 0) return new Color(0, 0, 0);
     if (world.hit(this, 0.001, Infinity, rec)) {
-      const target = rec.p.add(rec.normal).add(Vec3.randomUnitVector());
+      const target = rec.p.add(Vec3.randomInHemisphere(rec.normal));
       const r = new Ray(rec.p, target.sub(rec.p));
       const N = r.color(world, depth - 1).scalarProd(0.5);
       return new Color(N.x, N.y, N.z);

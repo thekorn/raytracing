@@ -23,6 +23,16 @@ export class Vec3 {
     }
   }
 
+  public static randomInHemisphere(normal: Vec3): Vec3 {
+    const inUnitSphere = Vec3.randomInUnitSphere();
+    if (inUnitSphere.dot(normal) > 0) {
+      // in the same hemnisphere as the normal
+      return inUnitSphere;
+    } else {
+      return inUnitSphere.scalarProd(-1);
+    }
+  }
+
   public static randomUnitVector(): Vec3 {
     const a = randomNumber(0, 2 * Math.PI);
     const z = randomNumber(-1, 1);
