@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "create": "ts-node index.ts",
+    "create:inspect": "node --inspect-brk -r ts-node/register index.ts",
     "test": "npm run lint && jest --collectCoverage",
     "lint": "eslint . --ext .ts"
   },
