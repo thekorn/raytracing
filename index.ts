@@ -12,6 +12,7 @@ const aspectRatio = 16 / 9;
 const imgWidth = 384;
 const imgHeight = imgWidth / aspectRatio;
 const samplesPerPixel = 100;
+const maxDepth = 50;
 
 const img = new PPMImageFile('/tmp/boo.ppm', imgWidth, imgHeight);
 
@@ -31,7 +32,7 @@ for (let y = imgHeight - 1; y >= 0; --y) {
       const u = (x + randomNumber()) / (imgWidth - 1);
       const v = (y + randomNumber()) / (imgHeight - 1);
       const r = cam.getRay(u, v);
-      pixelColor = pixelColor.add(r.color(world));
+      pixelColor = pixelColor.add(r.color(world, maxDepth));
     }
     img.writeColor(pixelColor, samplesPerPixel);
   }

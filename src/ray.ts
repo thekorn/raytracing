@@ -16,12 +16,14 @@ export class Ray {
     return this.origin.add(this.direction.scalarProd(t));
   }
 
-  color(world: HittableList): Color {
+  color(world: HittableList, depth: number): Color {
     const rec = new HitRecord();
+    // if we exceed the ray bounce limit, no more light is gathered
+    if (depth <= 0) return new Color(0, 0, 0);
     if (world.hit(this, 0, Infinity, rec)) {
       const target = rec.p.add(rec.normal).add(Vec3.randomInUnitSphere());
       const r = new Ray(rec.p, target.sub(rec.p));
-      const N = r.color(world).scalarProd(0.5);
+      const N = r.color(world, depth - 1).scalarProd(0.5);
       return new Color(N.x, N.y, N.z);
     }
     const unitDirection = this.direction.unitVec();
