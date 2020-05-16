@@ -11,6 +11,13 @@ export class hitRecord {
     this.front_face = r.direction.dot(outward_normal) < 0
     this.normal = this.front_face ? outward_normal : outward_normal.scalarProd(-1)
   }
+
+  update(n: hitRecord) {
+    this.p = n.p
+    this.normal = n.normal
+    this.t = n.t
+    this.front_face = n.front_face
+  }
 }
 
 export abstract class hittable {

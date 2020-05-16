@@ -20,8 +20,8 @@ export class sphere implements hittable {
     const halfB = oc.dot(r.direction)
     const c = oc.length_squared() - this.radius * this.radius
 
-    const discriminant = halfB * halfB  - a * c
-    if (discriminant < 0) {
+    const discriminant = halfB * halfB  - a * c    
+    if (discriminant > 0) {
       const root = Math.sqrt(discriminant)
       let temp = (-1 * halfB - root) / a
       if (temp < t_max && temp > t_min) {
@@ -31,7 +31,7 @@ export class sphere implements hittable {
         rec.set_face_normal(r, outward_normal)
         return true
       }
-      temp = (-1* halfB + root) / a
+      temp = (-1 * halfB + root) / a
       if (temp < t_max && temp > t_min) {
         rec.t = temp
         rec.p = r.at(rec.t)

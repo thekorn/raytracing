@@ -1,5 +1,7 @@
 import { point3, vec3, color } from "./vec3"
 import { sphere } from './sphere'
+import { hittable_list} from './hittableList'
+import { hitRecord } from "./hittable"
 
 
 export class ray {
@@ -15,14 +17,10 @@ export class ray {
     return this.origin.add(this.direction.scalarProd(t))
   }
 
-  color(redSphere: sphere): color {
-    const h = redSphere.hit(this)
-    if (h > 0) {
-      const N = this.at(h)
-        .sub(new vec3(0, 0, -1))
-        .unitVec()               // each component between -1 and 1
-        .add(new vec3(1, 1, 1))  // move range to values between 0 and 2
-        .scalarProd(0.5)         // normalize range to 0 and 1 to make it a valid color
+  color(world: hittable_list): color {
+    const rec = new hitRecord()
+    if (world.hit(this, 0, Infinity, rec)) {
+      const N = rec.normal.add(new color(1, 1, 1)).scalarProd(0.5)
       return new color(N.x, N.y, N.z)
     }
     const unitDirection = this.direction.unitVec()
