@@ -1,4 +1,5 @@
-import { point3, vec3, color } from "./vec3";
+import { point3, vec3, color } from "./vec3"
+import { sphere } from './sphere'
 
 
 export class ray {
@@ -14,7 +15,8 @@ export class ray {
     return this.origin.add(this.direction.scalarProd(t))
   }
 
-  color(): color {
+  color(redSphere: sphere): color {
+    if (redSphere.hit(this)) return new color(1, 0, 0)
     const unitDirection = this.direction.unitVec()
     const t = 0.5 * (unitDirection.y + 1)
     return new color(1, 1, 1).scalarProd(1 - t).add(new color(0.5, 0.7, 1).scalarProd(t))

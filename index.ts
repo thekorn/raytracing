@@ -1,6 +1,7 @@
 import { PPMImageFile } from './src/image'
-import { color, point3, vec3 } from './src/vec3'
+import { point3, vec3 } from './src/vec3'
 import { ray } from './src/ray'
+import { sphere } from './src/sphere'
 
 const aspectRatio = 16 / 9
 const imgWidth = 384
@@ -13,6 +14,7 @@ const horizontal = new vec3(4, 0, 0)
 const vertical = new vec3(0, 2.25, 0)
 const lowerLeftCorner = origin.sub(horizontal.div(2)).sub(vertical.div(2)).sub(new vec3(0, 0, 1))
 
+const redSphere = new sphere(new point3(0, 0, -1), 0.5)
 
 for (let y = imgHeight - 1; y >= 0 ; --y) {
   for (let x = 0; x < imgWidth; ++x) {
@@ -20,7 +22,7 @@ for (let y = imgHeight - 1; y >= 0 ; --y) {
     const v = y / (imgHeight - 1)
 
     const r = new ray(origin, lowerLeftCorner.add(horizontal.scalarProd(u)).add(vertical.scalarProd(v)))
-    const pixelColor = r.color()
+    const pixelColor = r.color(redSphere)
     img.writeColor(pixelColor)
   }
 }
