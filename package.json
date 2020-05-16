@@ -5,13 +5,17 @@
   "main": "index.ts",
   "scripts": {
     "create": "ts-node index.ts",
-    "test": "jest --collectCoverage"
+    "test": "npm run lint && jest --collectCoverage",
+    "lint": "eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "ts-jest": "^26.0.0",
     "ts-node": "^8.10.1",

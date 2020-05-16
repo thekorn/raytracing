@@ -1,30 +1,29 @@
-import { point3, vec3, color } from "./vec3"
-import { sphere } from './sphere'
-import { hittable_list} from './hittableList'
-import { hitRecord } from "./hittable"
+import { Point3, Vec3, Color } from './vec3'
+import { HittableList} from './hittableList'
+import { HitRecord } from "./hittable"
 
 
-export class ray {
-  readonly origin: point3
-  readonly direction: vec3
+export class Ray {
+  readonly origin: Point3
+  readonly direction: Vec3
 
-  constructor(origin?: point3, direction?: vec3) {
-    this.origin = origin || new point3()
-    this.direction = direction || new vec3()
+  constructor(origin?: Point3, direction?: Vec3) {
+    this.origin = origin || new Point3()
+    this.direction = direction || new Vec3()
   }
 
-  at(t: number): vec3 {
+  at(t: number): Vec3 {
     return this.origin.add(this.direction.scalarProd(t))
   }
 
-  color(world: hittable_list): color {
-    const rec = new hitRecord()
+  color(world: HittableList): Color {
+    const rec = new HitRecord()
     if (world.hit(this, 0, Infinity, rec)) {
-      const N = rec.normal.add(new color(1, 1, 1)).scalarProd(0.5)
-      return new color(N.x, N.y, N.z)
+      const N = rec.normal.add(new Color(1, 1, 1)).scalarProd(0.5)
+      return new Color(N.x, N.y, N.z)
     }
     const unitDirection = this.direction.unitVec()
     const t = 0.5 * (unitDirection.y + 1)
-    return new color(1, 1, 1).scalarProd(1 - t).add(new color(0.5, 0.7, 1).scalarProd(t))
+    return new Color(1, 1, 1).scalarProd(1 - t).add(new Color(0.5, 0.7, 1).scalarProd(t))
   }
 }

@@ -1,4 +1,4 @@
 
-export function degrees_to_radian(degress: number) {
+export function degreesToRadian(degress: number): number {
   return degress * Math.PI / 180
 }

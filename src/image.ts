@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 
-import { color } from './vec3'
-import { NOTIMP } from 'dns';
+import { Color } from './vec3'
 
 export class PPMImageFile {
   readonly filepath: string
@@ -13,21 +12,21 @@ export class PPMImageFile {
     this.writeHeader(width, height)
   }
   
-  writeLine(data: string) {
+  writeLine(data: string): void {
     this.stream.write(`${data}\n`)
   }
 
-  writeHeader(width: number, height: number) {
+  writeHeader(width: number, height: number): void {
     this.writeLine('P3') // magic number for PPM bitmaps
     this.writeLine(`${width} ${height}`)
     this.writeLine('255') // max color value
   }
 
-  writePixel(r: number, g: number, b: number) {
+  writePixel(r: number, g: number, b: number): void {
     this.writeLine(`${r} ${g} ${b}`)
   }
 
-  writeColor(c: color) {
+  writeColor(c: Color): void {
     const normColor = c.scalarProd(255)
     this.writePixel(Math.floor(normColor.x), Math.floor(normColor.y), Math.floor(normColor.z))
   }

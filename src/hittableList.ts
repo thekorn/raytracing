@@ -1,35 +1,35 @@
-import { hittable, hitRecord } from "./hittable"
-import { ray } from './ray'
+import { Hittable, HitRecord } from "./hittable"
+import { Ray } from './ray'
 
-export class hittable_list implements hittable {
+export class HittableList implements Hittable {
 
-  private list: Array<hittable>
+  private list: Array<Hittable>
 
-  constructor(object?: hittable) {
+  constructor(object?: Hittable) {
     this.clear()
     if (object) this.add(object)
   }
 
-  clear() {
-    this.list = new Array()
+  clear(): void {
+    this.list = []
   }
 
-  add(object: hittable) {
+  add(object: Hittable): void {
     this.list.push(object)
   }
 
-  hit(r: ray, t_min: number, t_max: number, rec: hitRecord): boolean {
-    const temp_rec = new hitRecord()
-    let hit_anything = false
-    let closest_so_far = t_max
+  hit(r: Ray, tMin: number, tMax: number, rec: HitRecord): boolean {
+    const tempRec = new HitRecord()
+    let hitAnything = false
+    let closestSoFar = tMax
 
     this.list.forEach((object) => {
-      if (object.hit(r, t_min, closest_so_far, temp_rec)) {
-        hit_anything = true
-        closest_so_far = temp_rec.t
-        rec.update(temp_rec)
+      if (object.hit(r, tMin, closestSoFar, tempRec)) {
+        hitAnything = true
+        closestSoFar = tempRec.t
+        rec.update(tempRec)
       }
     })
-    return hit_anything
+    return hitAnything
   }
 }
