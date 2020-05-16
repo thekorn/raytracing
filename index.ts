@@ -23,12 +23,16 @@ const world = new HittableList();
 world.add(new Sphere(new Point3(0, -100.5, -1), 100, new Lambertian(new Color(0.8, 0.8, 0.0)))); // horizon
 world.add(new Sphere(new Point3(0, 0, -1), 0.5, new Lambertian(new Color(0.1, 0.2, 0.5)))); // center
 
-world.add(new Sphere(new Point3(1, 0, -1), 0.5, new Metal(new Color(0.8, 0.6, 0.2), 0))); // right
+world.add(new Sphere(new Point3(1, 0, -1), 0.5, new Metal(new Color(0.8, 0.6, 0.2), 0.3))); // right
 world.add(new Sphere(new Point3(-1, 0, -1), 0.5, new Dielectric(1.5))); // left
+world.add(new Sphere(new Point3(-1, 0, -1), -0.45, new Dielectric(1.5))); // left inner
 
 const cam = Camera.default();
 
-const progresBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+const opt = {
+  format: '{bar} {percentage}% | ETA: {eta}s | {value}/{total} | Duration: {duration_formatted}',
+}
+const progresBar = new cliProgress.SingleBar(opt, cliProgress.Presets.shades_classic);
 progresBar.start(imgHeight * imgWidth * samplesPerPixel, 0);
 
 for (let y = imgHeight - 1; y >= 0; --y) {
