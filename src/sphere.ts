@@ -27,14 +27,16 @@ export class sphere implements hittable {
       if (temp < t_max && temp > t_min) {
         rec.t = temp
         rec.p = r.at(rec.t)
-        rec.normal = rec.p.sub(this.center).div(this.radius)
+        const outward_normal = rec.p.sub(this.center).div(this.radius)
+        rec.set_face_normal(r, outward_normal)
         return true
       }
       temp = (-1* halfB + root) / a
       if (temp < t_max && temp > t_min) {
         rec.t = temp
         rec.p = r.at(rec.t)
-        rec.normal = rec.p.sub(this.center).div(this.radius)
+        const outward_normal = rec.p.sub(this.center).div(this.radius)
+        rec.set_face_normal(r, outward_normal)
         return true
       }
     }
