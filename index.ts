@@ -8,13 +8,15 @@ import { Camera } from './src/camera';
 import { Color } from './src/color';
 import { randomNumber } from './src/utils';
 
+const filename = process.argv[2] || '/tmp/image.ppm';
+
 const aspectRatio = 16 / 9;
 const imgWidth = 384;
 const imgHeight = imgWidth / aspectRatio;
 const samplesPerPixel = 100;
 const maxDepth = 50;
 
-const img = new PPMImageFile('/tmp/boo.ppm', imgWidth, imgHeight);
+const img = new PPMImageFile(filename, imgWidth, imgHeight);
 
 const world = new HittableList();
 world.add(new Sphere(new Point3(0, -100.5, -1), 100));
