@@ -35,6 +35,14 @@ export class Vec3 {
     }
   }
 
+  public static randomInUnitDisk(): Vec3 {
+    while (true) {
+      const p = new Vec3(randomNumber(-1, 1), randomNumber(-1, 1), 0);
+      if (p.lengthSquared() >= 1) continue;
+      return p;
+    }
+  }
+
   public static randomInHemisphere(normal: Vec3): Vec3 {
     const inUnitSphere = Vec3.randomInUnitSphere();
     if (inUnitSphere.dot(normal) > 0) {

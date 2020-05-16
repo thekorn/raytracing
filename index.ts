@@ -27,7 +27,14 @@ world.add(new Sphere(new Point3(1, 0, -1), 0.5, new Metal(new Color(0.8, 0.6, 0.
 world.add(new Sphere(new Point3(-1, 0, -1), 0.5, new Dielectric(1.5))); // left
 world.add(new Sphere(new Point3(-1, 0, -1), -0.45, new Dielectric(1.5))); // left inner
 
-const cam = new Camera(new Point3(-2, 2, 1), new Point3(0, 0, -1), new Vec3(-1, 1, -1), 20, aspectRatio);
+const lookFrom = new Point3(3, 3, 2);
+const lookAt = new Point3(0, 0, -1);
+const cameraUp = new Vec3(0, 1, 0);
+
+const distToFocus = lookFrom.sub(lookAt).length();
+const aperture = 2;
+
+const cam = new Camera(lookFrom, lookAt, cameraUp, 20, aspectRatio, aperture, distToFocus);
 
 const opt = {
   format: '{bar} {percentage}% | ETA: {eta}s | {value}/{total} | Duration: {duration_formatted}',
