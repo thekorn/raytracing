@@ -23,6 +23,13 @@ export class Vec3 {
     }
   }
 
+  public static randomUnitVector(): Vec3 {
+    const a = randomNumber(0, 2 * Math.PI);
+    const z = randomNumber(-1, 1);
+    const r = Math.sqrt(1 - z * z);
+    return new Vec3(r * Math.cos(a), r * Math.sin(a), z);
+  }
+
   scalarProd(a: number): Vec3 {
     return new Vec3(a * this.x, a * this.y, a * this.z);
   }
