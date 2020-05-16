@@ -44,3 +44,28 @@ test('get length of vector', () => {
   const c = new vec3(1, 2, 3)
   expect(c.length()).toBe(Math.sqrt(14))
 })
+
+test('get unit vector', () => {
+  const v = new vec3(2, 0 , 0)
+  expect(v.unitVec().equals(new vec3(1, 0, 0))).toBeTruthy()
+})
+
+test('vectors are equal', () => {
+  expect(new vec3(1, 2, 4).equals(new vec3(1, 2, 4))).toBeTruthy()
+})
+
+test('dot peoduct of two vectors', () => {
+  const a = new vec3(1, 2, 3)
+  const b = new vec3(4, 8, 12)
+
+  const c = a.dot(b)
+  expect(c).toBe(56)
+})
+
+test('cross peoduct of two vectors', () => {
+  const a = new vec3(1, 2, 3)
+  const b = new vec3(4, 8, 12)
+
+  const c = a.cross(b)  
+  expect(c.equals(new vec3())).toBeTruthy()
+})
