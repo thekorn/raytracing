@@ -5,3 +5,6 @@ images/*
 !images/*.jpg
 
 .DS_Store
+
+flamegraph.html
+isolate*.log
