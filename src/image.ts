@@ -31,8 +31,8 @@ export class PPMImageFile {
     const scale = 1 / samplesPerPixel;
 
     const normColor = c
-      .map((x) => Math.sqrt(scale * x))
-      .map((x) => clamp(x, 0, 1))
+      .map((x: number) => Math.sqrt(scale * x))
+      .map((x: number) => clamp(x, 0, 1))
       .scalarProd(256);
     this.writePixel(
       Math.floor(normColor.x),

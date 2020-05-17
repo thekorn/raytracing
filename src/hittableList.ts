@@ -5,7 +5,7 @@ export class HittableList implements Hittable {
   private list: Array<Hittable>;
 
   constructor(object?: Hittable) {
-    this.clear();
+    this.list = [];
     if (object) this.add(object);
   }
 

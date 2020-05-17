@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "create": "ts-node index.ts",
     "create:inspect": "node --inspect-brk -r ts-node/register index.ts",
     "create:prof": "node --prof -r ts-node/register index.ts",
