@@ -34,6 +34,10 @@ export class PPMImageFile {
       .map((x) => Math.sqrt(scale * x))
       .map((x) => clamp(x, 0, 1))
       .scalarProd(256);
-    this.writePixel(Math.floor(normColor.x), Math.floor(normColor.y), Math.floor(normColor.z));
+    this.writePixel(
+      Math.floor(normColor.x),
+      Math.floor(normColor.y),
+      Math.floor(normColor.z),
+    );
   }
 }

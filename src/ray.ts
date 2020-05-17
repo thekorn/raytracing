@@ -43,6 +43,8 @@ export class Ray {
     }
     const unitDirection = this.direction.unitVec();
     const t = 0.5 * (unitDirection.y + 1);
-    return new Color(1, 1, 1).scalarProd(1 - t).add(new Color(0.5, 0.7, 1).scalarProd(t));
+    return new Color(1, 1, 1)
+      .scalarProd(1 - t)
+      .add(new Color(0.5, 0.7, 1).scalarProd(t));
   }
 }

@@ -44,7 +44,9 @@ export class Camera {
   getRay(u: number, v: number): Ray {
     return new Ray(
       this.origin,
-      this.lowerLeftCorner.add(this.horizontal.scalarProd(u)).add(this.vertical.scalarProd(v).sub(this.origin)),
+      this.lowerLeftCorner
+        .add(this.horizontal.scalarProd(u))
+        .add(this.vertical.scalarProd(v).sub(this.origin)),
     );
   }
 }

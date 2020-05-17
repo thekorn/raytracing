@@ -24,7 +24,11 @@ export class Vec3 {
   }
 
   public static random(min = 0, max = 1): Vec3 {
-    return new Vec3(randomNumber(min, max), randomNumber(min, max), randomNumber(min, max));
+    return new Vec3(
+      randomNumber(min, max),
+      randomNumber(min, max),
+      randomNumber(min, max),
+    );
   }
 
   public static randomInUnitSphere(): Vec3 {
@@ -92,7 +96,11 @@ export class Vec3 {
   }
 
   cross(v: Vec3): Vec3 {
-    return new Vec3(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
+    return new Vec3(
+      this.y * v.z - this.z * v.y,
+      this.z * v.x - this.x * v.z,
+      this.x * v.y - this.y * v.x,
+    );
   }
 
   unitVec(): Vec3 {
@@ -121,8 +129,12 @@ export class Vec3 {
 
   refract(normal: Vec3, etaiOverEtat: number): Vec3 {
     const cosTheta = this.scalarProd(-1).dot(normal);
-    const rOutParallel = this.add(normal.scalarProd(cosTheta)).scalarProd(etaiOverEtat);
-    const rOutPrep = normal.scalarProd(-1 * Math.sqrt(1 - rOutParallel.lengthSquared()));
+    const rOutParallel = this.add(normal.scalarProd(cosTheta)).scalarProd(
+      etaiOverEtat,
+    );
+    const rOutPrep = normal.scalarProd(
+      -1 * Math.sqrt(1 - rOutParallel.lengthSquared()),
+    );
     return rOutParallel.add(rOutPrep);
   }
 }

@@ -5,7 +5,12 @@ import { Vec3 } from './vec3';
 import { schlick, randomNumber } from './utils';
 
 export abstract class Material {
-  abstract scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean;
+  abstract scatter(
+    rIn: Ray,
+    rec: HitRecord,
+    attenuation: Color,
+    scattered: Ray,
+  ): boolean;
 }
 
 export class Lambertian implements Material {
@@ -15,7 +20,12 @@ export class Lambertian implements Material {
     this.albedo = albedo;
   }
 
-  scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean {
+  scatter(
+    rIn: Ray,
+    rec: HitRecord,
+    attenuation: Color,
+    scattered: Ray,
+  ): boolean {
     // const scatterDirection = rec.normal.add(Vec3.randomUnitVector()); // FIXME: is a bug according to https://github.com/RayTracing/raytracing.github.io/issues/530
     const scatterDirection = rec.normal.add(Vec3.randomInUnitSphere());
     scattered.update(new Ray(rec.p, scatterDirection));
@@ -33,9 +43,19 @@ export class Metal implements Material {
     this.fuzz = fuzz < 1 ? fuzz : 1;
   }
 
-  scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean {
+  scatter(
+    rIn: Ray,
+    rec: HitRecord,
+    attenuation: Color,
+    scattered: Ray,
+  ): boolean {
     const reflected = rIn.direction.unitVec().reflect(rec.normal);
-    scattered.update(new Ray(rec.p, reflected.add(Vec3.randomInUnitSphere().scalarProd(this.fuzz))));
+    scattered.update(
+      new Ray(
+        rec.p,
+        reflected.add(Vec3.randomInUnitSphere().scalarProd(this.fuzz)),
+      ),
+    );
     attenuation.update(this.albedo);
     return scattered.direction.dot(rec.normal) > 0;
   }
@@ -48,9 +68,16 @@ export class Dielectric implements Material {
     this.reflectionIdx = refIdx;
   }
 
-  scatter(rIn: Ray, rec: HitRecord, attenuation: Color, scattered: Ray): boolean {
+  scatter(
+    rIn: Ray,
+    rec: HitRecord,
+    attenuation: Color,
+    scattered: Ray,
+  ): boolean {
     attenuation.update(new Color(1, 1, 1));
-    const etaiOverEtat = rec.frontFace ? 1 / this.reflectionIdx : this.reflectionIdx;
+    const etaiOverEtat = rec.frontFace
+      ? 1 / this.reflectionIdx
+      : this.reflectionIdx;
     const unitDirection = rIn.direction.unitVec();
 
     const cosTheta = Math.min(unitDirection.scalarProd(-1).dot(rec.normal), 1);

@@ -8,12 +8,22 @@ import { randomNumber } from './utils';
 export function generateRandomScene(): HittableList {
   const world = new HittableList();
 
-  world.add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(new Color(0.5, 0.5, 0.5)))); // horizon
+  world.add(
+    new Sphere(
+      new Point3(0, -1000, 0),
+      1000,
+      new Lambertian(new Color(0.5, 0.5, 0.5)),
+    ),
+  ); // horizon
 
   for (let a = -11; a < 11; a++) {
     for (let b = -11; b < 11; b++) {
       const chooseMaterial = randomNumber();
-      const center = new Point3(a + 0.9 * randomNumber(), 0.2, b + 0.9 * randomNumber());
+      const center = new Point3(
+        a + 0.9 * randomNumber(),
+        0.2,
+        b + 0.9 * randomNumber(),
+      );
       if (center.sub(new Vec3(4, 0.2, 0)).length() > 0.9) {
         if (chooseMaterial < 0.8) {
           // diffuse
@@ -33,7 +43,15 @@ export function generateRandomScene(): HittableList {
   }
 
   world.add(new Sphere(new Point3(0, 1, 0), 1, new Dielectric(1.5)));
-  world.add(new Sphere(new Point3(-4, 1, 0), 1, new Lambertian(new Color(0.4, 0.2, 0.1))));
-  world.add(new Sphere(new Point3(4, 1, 0), 1, new Metal(new Color(0.7, 0.6, 0.5))));
+  world.add(
+    new Sphere(
+      new Point3(-4, 1, 0),
+      1,
+      new Lambertian(new Color(0.4, 0.2, 0.1)),
+    ),
+  );
+  world.add(
+    new Sphere(new Point3(4, 1, 0), 1, new Metal(new Color(0.7, 0.6, 0.5))),
+  );
   return world;
 }

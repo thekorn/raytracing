@@ -26,12 +26,24 @@ const cameraUp = new Vec3(0, 1, 0);
 const distToFocus = 10;
 const aperture = 0.1;
 
-const cam = new Camera(lookFrom, lookAt, cameraUp, 20, aspectRatio, aperture, distToFocus);
+const cam = new Camera(
+  lookFrom,
+  lookAt,
+  cameraUp,
+  20,
+  aspectRatio,
+  aperture,
+  distToFocus,
+);
 
 const opt = {
-  format: '{bar} {percentage}% | ETA: {eta}s | {value}/{total} | Duration: {duration_formatted}',
+  format:
+    '{bar} {percentage}% | ETA: {eta}s | {value}/{total} | Duration: {duration_formatted}',
 };
-const progresBar = new cliProgress.SingleBar(opt, cliProgress.Presets.shades_classic);
+const progresBar = new cliProgress.SingleBar(
+  opt,
+  cliProgress.Presets.shades_classic,
+);
 progresBar.start(imgHeight * imgWidth * samplesPerPixel, 0);
 
 for (let y = imgHeight - 1; y >= 0; --y) {
