@@ -8,14 +8,20 @@ import { randomNumber } from './utils';
 export function generateRandomScene(): HittableList {
   const world = new HittableList();
 
+  // horizon
   world.add(
     new Sphere(
       new Point3(0, -1000, 0),
       1000,
       new Lambertian(new Color(0.5, 0.5, 0.5)),
     ),
-  ); // horizon
+  );
 
+  // random spheres on the ground
+  // material distribution:
+  //    * 80% Lambertian
+  //    * 15% Metal
+  //    *  5% Glass
   for (let a = -11; a < 11; a++) {
     for (let b = -11; b < 11; b++) {
       const chooseMaterial = randomNumber();
@@ -42,6 +48,7 @@ export function generateRandomScene(): HittableList {
     }
   }
 
+  // Big spheres in the center
   world.add(new Sphere(new Point3(0, 1, 0), 1, new Dielectric(1.5)));
   world.add(
     new Sphere(
