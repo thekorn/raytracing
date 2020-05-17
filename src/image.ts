@@ -19,7 +19,7 @@ export class PPMImageFile {
 
   writeHeader(width: number, height: number): void {
     this.writeLine('P3'); // magic number for PPM bitmaps
-    this.writeLine(`${width} ${height}`);
+    this.writeLine(`${Math.floor(width)} ${Math.floor(height)}`);
     this.writeLine('256'); // max color value
   }
 
