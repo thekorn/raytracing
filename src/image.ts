@@ -3,11 +3,14 @@ import * as fs from 'fs';
 import { Color } from './color';
 import { clamp } from './utils';
 
-export class PPMImageFile {
+export class ImageFile {}
+
+export class PPMImageFile extends ImageFile {
   readonly filepath: string;
   readonly stream: fs.WriteStream;
 
   constructor(path: string, width: number, height: number) {
+    super();
     this.filepath = path;
     this.stream = fs.createWriteStream(path);
     this.writeHeader(width, height);

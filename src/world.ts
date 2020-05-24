@@ -4,6 +4,7 @@ import { Point3, Vec3 } from './vec3';
 import { Lambertian, Metal, Dielectric } from './material';
 import { Color } from './color';
 import { randomNumber } from './utils';
+import { Camera } from './camera';
 
 export function generateRandomScene(): HittableList {
   const world = new HittableList();
@@ -61,4 +62,45 @@ export function generateRandomScene(): HittableList {
     new Sphere(new Point3(4, 1, 0), 1, new Metal(new Color(0.7, 0.6, 0.5))),
   );
   return world;
+}
+
+interface WorldSetup {
+  world: HittableList;
+  cam: Camera;
+  aspectRatio: number;
+  samplesPerPixel: number;
+  maxDepth: number;
+}
+
+export function setup(): WorldSetup {
+  const world = generateRandomScene();
+
+  const lookFrom = new Point3(13, 2, 3);
+  const lookAt = new Point3(0, 0, 0);
+  const cameraUp = new Vec3(0, 1, 0);
+
+  const distToFocus = 10;
+  const aperture = 0.1;
+  const aspectRatio = 16 / 9;
+
+  const samplesPerPixel = 100;
+  const maxDepth = 50;
+
+  const cam = new Camera(
+    lookFrom,
+    lookAt,
+    cameraUp,
+    20,
+    aspectRatio,
+    aperture,
+    distToFocus,
+  );
+
+  return {
+    cam,
+    world,
+    aspectRatio,
+    samplesPerPixel,
+    maxDepth,
+  };
 }

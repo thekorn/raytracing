@@ -10,7 +10,8 @@
     "create:prof": "node --prof -r ts-node/register index.ts",
     "test": "npm run lint && jest --collectCoverage",
     "lint": "eslint . --ext .ts",
-    "flamebearer": "node --prof-process --preprocess -j isolate*.log | flamebearer"
+    "flamebearer": "node --prof-process --preprocess -j isolate*.log | flamebearer",
+    "cluster": "ts-node cluster.ts"
   },
   "author": "",
   "license": "ISC",
