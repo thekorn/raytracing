@@ -54,7 +54,7 @@ test('vectors are equal', () => {
   expect(new vec3(1, 2, 4).equals(new vec3(1, 2, 4))).toBeTruthy()
 })
 
-test('dot peoduct of two vectors', () => {
+test('dot product of two vectors', () => {
   const a = new vec3(1, 2, 3)
   const b = new vec3(4, 8, 12)
 
@@ -62,7 +62,7 @@ test('dot peoduct of two vectors', () => {
   expect(c).toBe(56)
 })
 
-test('cross peoduct of two vectors', () => {
+test('cross product of two vectors', () => {
   const a = new vec3(1, 2, 3)
   const b = new vec3(4, 8, 12)
 
