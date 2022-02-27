@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "create": "ts-node index.ts",
+    "create": "node ./dist/index.js",
     "create:inspect": "node --inspect-brk -r ts-node/register index.ts",
     "create:prof": "node --prof -r ts-node/register index.ts",
     "test": "npm run lint && jest --collectCoverage",
