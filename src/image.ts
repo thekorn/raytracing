@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 
 import { color } from './vec3'
-import { NOTIMP } from 'dns';
 
 export class PPMImageFile {
   readonly filepath: string

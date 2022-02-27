@@ -11,15 +11,21 @@ const img = new PPMImageFile('/tmp/boo.ppm', imgWidth, imgHeight)
 const origin = new point3(0, 0, 0)
 const horizontal = new vec3(4, 0, 0)
 const vertical = new vec3(0, 2.25, 0)
-const lowerLeftCorner = origin.sub(horizontal.div(2)).sub(vertical.div(2)).sub(new vec3(0, 0, 1))
+const lowerLeftCorner = origin
+  .sub(horizontal.div(2))
+  .sub(vertical.div(2))
+  .sub(new vec3(0, 0, 1))
 
 
-for (let y = imgHeight - 1; y >= 0 ; --y) {
-  for (let x = 0; x < imgWidth; ++x) {
-    const u = x / (imgWidth - 1)
-    const v = y / (imgHeight - 1)
+for (let y = imgHeight-1; y >= 0 ; y--) {
+  for (let x = 0; x < imgWidth; x++) {
+    const u = x / imgWidth
+    const v = y / imgHeight
 
-    const r = new ray(origin, lowerLeftCorner.add(horizontal.scalarProd(u)).add(vertical.scalarProd(v)))
+    const d = lowerLeftCorner.add(horizontal.scalarProd(u))
+      .add(vertical.scalarProd(v))
+
+    const r = new ray(origin, d)
     const pixelColor = r.color()
     img.writeColor(pixelColor)
   }
