@@ -119,7 +119,7 @@ export class Vec3 {
     return this.x === v.x && this.y === v.y && this.z === v.z;
   }
 
-  map(f: Function): Vec3 {
+  map(f: (x: number) => number): Vec3 {
     return new Vec3(f(this.x), f(this.y), f(this.z));
   }
 
